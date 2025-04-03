@@ -1,6 +1,0 @@
-langchain==0.1.11
-langchain-openai==0.0.8
-langgraph==0.0.26
-streamlit==1.32.2
-pillow==10.2.0
-python-dotenv==1.0.1
