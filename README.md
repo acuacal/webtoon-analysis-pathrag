@@ -1,13 +1,30 @@
-핵심 기능: 웹툰 이미지와 텍스트를 통합 분석하여 편집자/마케팅 담당자의 업무 효율화
+# Webtoon Comprehension AI Agent (PoC)
 
-기술 스택: LangChain, LangGraph, MLLM(GPT-4o/Gemini Pro Vision)
+## 프로젝트 개요
+이 프로젝트는 웹툰 콘텐츠(이미지+텍스트)를 이해하고 분석하여 요약 결과를 제공하는 AI 에이전트의 Proof-of-Concept(PoC)입니다.
 
-구현 계획:
+### PoC 범위
+- **입력:** 단일 웹툰 에피소드의 대표 이미지(1~3컷)와 텍스트.
+- **처리:**
+    - MLLM(GPT-4o 등)을 활용하여 각 이미지 내용 분석.
+    - LLM(GPT-4o-mini 등)을 활용하여 텍스트와 이미지 분석 결과를 종합하여 에피소드 요약 생성.
+    - LangGraph를 이용한 워크플로우 구성 (이미지 분석 -> 요약 생성).
+- **출력:** 에피소드 요약 및 각 이미지 분석 결과.
+- **UI:** Streamlit 기반의 간단한 웹 인터페이스 제공 (샘플 에피소드 선택 또는 파일 업로드 기능, 결과 표시).
 
-웹툰 데이터 전처리
+### 기술 스택
+- LangChain & LangGraph
+- OpenAI GPT-4o / GPT-4o-mini (또는 Gemini)
+- Streamlit
+- Python
 
-LangGraph 워크플로우 설계
 
-이미지 분석 컴포넌트 개발
-
-Streamlit 데모 UI 개발
+## 코드 구조 설계
+- `app.py`: Streamlit 웹 애플리케이션 실행 파일.
+- `src/agents/webtoon_agent.py`: LangGraph 에이전트 정의 (State, Nodes, Graph).
+- `src/utils/data_loader.py`: 샘플 웹툰 데이터 로딩 유틸리티.
+- `data/`: 샘플 데이터 저장 폴더 (images, text, metadata.json).
+- `config/`: (필요시) 설정 파일 저장.
+- `tests/`: 테스트 코드 저장 폴더.
+- `requirements.txt`: 의존성 관리.
+- `.env`: API 키 관리.
