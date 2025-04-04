@@ -1,3 +1,17 @@
+Metadata-Version: 2.4
+Name: webtoon-comprehension-agent
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: langchain==0.1.11
+Requires-Dist: langchain-google-genai>=1.0.4
+Requires-Dist: langchain-openai==0.0.8
+Requires-Dist: langgraph==0.0.26
+Requires-Dist: pillow==10.2.0
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: streamlit==1.32.2
+
 # Webtoon Comprehension AI Agent (PoC)
 
 ## 프로젝트 개요
@@ -28,60 +42,3 @@
 - `tests/`: 테스트 코드 저장 폴더.
 - `uv.lock` & `pyproject.toml`: 의존성 관리.
 - `.env`: API 키 관리.
-
-# PathRAG 설치 및 사용 가이드
-
-이 프로젝트에서는 PathRAG를 사용합니다. PathRAG와 메인 프로젝트의 설치는 별도로 진행해야 합니다.
-
-## 설치 방법
-
-1. 먼저 PathRAG를 설치합니다:
-```bash
-cd PathRAG
-uv pip install -e .
-```
-
-2. 그 다음 메인 프로젝트의 의존성을 설치합니다:
-```bash
-cd ..  # 메인 프로젝트 루트로 이동
-uv pip install -e .
-```
-
-## 사용 방법
-
-PathRAG 사용 예제는 `v1_test.py` 파일을 참고하세요.
-
-```python
-import os
-from PathRAG import PathRAG, QueryParam
-from PathRAG.llm import gpt_4o_mini_complete
-
-# 작업 디렉토리 설정
-WORKING_DIR = "./your_working_dir"
-
-# API 키 설정 (필요 시)
-api_key="your_api_key"
-os.environ["OPENAI_API_KEY"] = api_key
-base_url="https://api.openai.com/v1"
-os.environ["OPENAI_API_BASE"]=base_url
-
-# 작업 디렉토리 생성
-if not os.path.exists(WORKING_DIR):
-    os.mkdir(WORKING_DIR)
-
-# PathRAG 초기화
-rag = PathRAG(
-    working_dir=WORKING_DIR,
-    llm_model_func=gpt_4o_mini_complete,  
-)
-
-# 데이터 삽입
-data_file="./text.txt"
-with open(data_file) as f:
-    rag.insert(f.read())
-
-# 쿼리 수행
-question="your_question"
-result = rag.query(question, param=QueryParam(mode="hybrid"))
-print(result)
-```

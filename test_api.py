@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
-
+import gc
 # .env 파일 로드
 load_dotenv()
 
@@ -31,4 +31,8 @@ llm_gemini = ChatGoogleGenerativeAI(
 response = llm_gemini.invoke("Hello, are you working properly?")
 
 print("Gemini API Test Response:", response.content)
-print("OpenAI API connection test successful!")
+print("Gemini API connection test successful!")
+
+# 추가: 종료 전에 명시적으로 세션을 정리
+
+gc.collect()
