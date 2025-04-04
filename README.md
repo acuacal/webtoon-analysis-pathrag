@@ -1,87 +1,43 @@
-# Webtoon Comprehension AI Agent (PoC)
+# Webtoon Analysis & Recommendation Agent with PathRAG (PoC)
 
 ## 프로젝트 개요
-이 프로젝트는 웹툰 콘텐츠(이미지+텍스트)를 이해하고 분석하여 요약 결과를 제공하는 AI 에이전트의 Proof-of-Concept(PoC)입니다.
+
+이 프로젝트는 웹툰 콘텐츠(이미지+텍스트)를 자동으로 이해하고 분석하는 AI 에이전트의 Proof-of-Concept(PoC)입니다. LangGraph 기반 에이전트를 사용하여 개별 웹툰의 내용을 분석하고, **PathRAG 기술을 통합하여 웹툰 간의 복잡한 관계성을 분석하고 개인화된 추천 기능을 제공하는 것**을 목표로 합니다.
 
 ### PoC 범위
-- **입력:** 단일 웹툰 에피소드의 대표 이미지(1~3컷)와 텍스트.
-- **처리:**
-    - MLLM(GPT-4o 등)을 활용하여 각 이미지 내용 분석.
-    - LLM(GPT-4o-mini 등)을 활용하여 텍스트와 이미지 분석 결과를 종합하여 에피소드 요약 생성.
-    - LangGraph를 이용한 워크플로우 구성 (이미지 분석 -> 요약 생성).
-- **출력:** 에피소드 요약 및 각 이미지 분석 결과.
-- **UI:** Streamlit 기반의 간단한 웹 인터페이스 제공 (샘플 에피소드 선택 또는 파일 업로드 기능, 결과 표시).
+
+* **개별 웹툰 분석 (WCAI Agent):**
+    * 입력: 사용자가 업로드한 웹툰 에피소드의 이미지 파일들.
+    * 처리: MLLM을 이용한 이미지 내 텍스트 추출(OCR) 및 시각적 내용 동시 분석.
+    * 출력: 추출된 텍스트, 이미지별 시각 분석 결과, LLM 기반 에피소드 요약.
+* **관계성 분석 및 추천 (PathRAG 통합):**
+    * **그래프 구축:** 분석된 웹툰 정보(메타데이터, 추출된 특징)를 기반으로 지식 그래프 생성 (웹툰, 작가, 장르, 태그 등 노드 및 관계 엣지).
+    * **PathRAG 인덱싱:** 웹툰 정보를 PathRAG에 인덱싱.
+    * **분석/추천 쿼리 처리:** PathRAG를 활용하여 자연어 쿼리에 대한 답변 생성.
+        * 유사 웹툰 추천 (예: "이 웹툰과 비슷한 그림체의 다른 작품 찾아줘").
+        * 인기 웹툰 패턴 분석 (예: "액션 판타지 장르 인기 웹툰들의 공통점은?").
+        * 크리에이터 전략 분석 (예: "작가 A의 작품 스타일 변화는?").
+        * 조건 기반 추천 (예: "로맨스 없고 그림체 좋은 웹툰 추천").
+* **UI:** Streamlit 기반 웹 인터페이스 제공 (개별 분석 + PathRAG 쿼리 기능).
+
+### 주요 기능 목록
+
+* 웹툰 이미지 기반 자동 텍스트 추출 (OCR) 및 시각 분석.
+* 에피소드 내용 자동 요약.
+* 웹툰 지식 그래프 자동 구축 및 시각화.
+* PathRAG를 이용한 문맥 기반 웹툰 정보 검색.
+* 유사 웹툰 추천 (내용, 스타일, 장르 등 기반).
+* 웹툰 트렌드 및 패턴 분석 지원.
 
 ### 기술 스택
-- LangChain & LangGraph
-- OpenAI GPT-4o / GPT-4o-mini (또는 Gemini)
-- Streamlit
-- Python
 
+* **AI Workflow:** LangChain & LangGraph
+* **Core Models:** OpenAI GPT-4o (MLLM/LLM) 또는 Gemini Pro Vision/1.5 Pro
+* **Graph RAG:** **PathRAG (BUPT-GAMMA)**
+* **Graph Handling:** **NetworkX**
+* **Web Interface:** Streamlit
+* **Development:** Python
+* **(선택) Graph Visualization:** PyVis
 
-## 코드 구조 설계
-- `app.py`: Streamlit 웹 애플리케이션 실행 파일.
-- `src/agents/webtoon_agent.py`: LangGraph 에이전트 정의 (State, Nodes, Graph).
-- `src/utils/data_loader.py`: 샘플 웹툰 데이터 로딩 유틸리티.
-- `data/`: 샘플 데이터 저장 폴더 (images, text, metadata.json).
-- `config/`: (필요시) 설정 파일 저장.
-- `tests/`: 테스트 코드 저장 폴더.
-- `uv.lock` & `pyproject.toml`: 의존성 관리.
-- `.env`: API 키 관리.
-
-# PathRAG 설치 및 사용 가이드
-
-이 프로젝트에서는 PathRAG를 사용합니다. PathRAG와 메인 프로젝트의 설치는 별도로 진행해야 합니다.
-
-## 설치 방법
-
-1. 먼저 PathRAG를 설치합니다:
-```bash
-cd PathRAG
-uv pip install -e .
-```
-
-2. 그 다음 메인 프로젝트의 의존성을 설치합니다:
-```bash
-cd ..  # 메인 프로젝트 루트로 이동
-uv pip install -e .
-```
-
-## 사용 방법
-
-PathRAG 사용 예제는 `v1_test.py` 파일을 참고하세요.
-
-```python
-import os
-from PathRAG import PathRAG, QueryParam
-from PathRAG.llm import gpt_4o_mini_complete
-
-# 작업 디렉토리 설정
-WORKING_DIR = "./your_working_dir"
-
-# API 키 설정 (필요 시)
-api_key="your_api_key"
-os.environ["OPENAI_API_KEY"] = api_key
-base_url="https://api.openai.com/v1"
-os.environ["OPENAI_API_BASE"]=base_url
-
-# 작업 디렉토리 생성
-if not os.path.exists(WORKING_DIR):
-    os.mkdir(WORKING_DIR)
-
-# PathRAG 초기화
-rag = PathRAG(
-    working_dir=WORKING_DIR,
-    llm_model_func=gpt_4o_mini_complete,  
-)
-
-# 데이터 삽입
-data_file="./text.txt"
-with open(data_file) as f:
-    rag.insert(f.read())
-
-# 쿼리 수행
-question="your_question"
-result = rag.query(question, param=QueryParam(mode="hybrid"))
-print(result)
-```
+---
+*(README의 나머지 부분: 설치 방법, 사용 방법, 프로젝트 구조 등은 이후 단계에서 구체화됩니다.)*
