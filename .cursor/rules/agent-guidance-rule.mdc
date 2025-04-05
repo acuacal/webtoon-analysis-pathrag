@@ -1,0 +1,29 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Project Rules
+
+## Documentation
+1. [README.md](mdc:README.md) contains the purpose, features, and usage instructions of this project.
+2. [design.md](mdc:docs/design.md) contains the overall code structure and architecture.
+3. [ticket_action_plan.md](mdc:docs/ticket_action_plan.md) has detailed action plan for each implementation step.
+
+## Development Methodology
+4. Follow Test-Driven Development (TDD) approach:
+   - Write tests first that define expected behavior
+   - Implement the minimum code needed to pass the tests
+   - Run tests and verify they pass
+   - Refactor code while ensuring tests continue to pass
+   - Repeat for each new feature
+
+## Code Quality
+5. All code must have appropriate docstrings and comments.
+6. Follow PEP 8 style guidelines for Python code.
+7. Keep functions small and focused on a single responsibility.
+
+## Version Control
+8. Create meaningful commit messages that describe the purpose of changes.
+9. Create a new branch for each major feature or bug fix.
