@@ -27,3 +27,6 @@ alwaysApply: true
 ## Version Control
 8. Create meaningful commit messages that describe the purpose of changes.
 9. Create a new branch for each major feature or bug fix.
+
+## Logging
+10 . LOG & DIARY & RMD as you go"
