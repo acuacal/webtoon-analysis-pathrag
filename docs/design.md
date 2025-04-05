@@ -6,7 +6,8 @@ webtoon-analysis-pathrag/
 │
 ├── [app.py](http://app.py/) # Streamlit 웹 애플리케이션 메인 파일
 │
-├── requirements.txt # Python 의존성 목록
+├── pyproject.toml # Python 의존성 목록
+├── uv.lock # Python 의존성 목록
 ├── .env # API 키 등 환경 변수 (Git 미포함)
 ├── .gitignore # Git 추적 제외 목록
 │
@@ -28,6 +29,8 @@ webtoon-analysis-pathrag/
 │ │ ├── graph_manager.py # 그래프 생성, 관리, 시각화 로직
 │ │ └── pathrag_integration.py# PathRAG 라이브러리 연동 및 인덱싱/쿼리
 │ │
+│ └── PathRag/ # 벤더링 된 PathRAG 라이브러리
+│ │
 │ └── utils/ # 유틸리티 함수
 │ ├── **init**.py
 │ └── data_loader.py # 에피소드 시퀀스 데이터 로딩 유틸리티
@@ -36,7 +39,7 @@ webtoon-analysis-pathrag/
 │ ├── images/ # 샘플 웹툰 이미지 (에피소드별 긴 스크롤)
 │ ├── metadata/ # 웹툰/에피소드 메타데이터 (JSON)
 │ │ ├── webtoons.json
-│ │ └── episodes.json (선택적)
+│ │ └── episodes.json
 │ └── graph_exports/ # 생성된 그래프 파일(GraphML), 시각화(HTML)
 │
 ├── config/ # 설정 파일 (필요시, 예: LLM 모델명, PathRAG 파라미터)
@@ -59,7 +62,7 @@ webtoon-analysis-pathrag/
 │ ├── graph_schema.md # 그래프 스키마 상세 정의 (선택적)
 │ └── images/ # README용 이미지, 데모 스크린샷 등
 │
-└── pathrag_working_dir/ # PathRAG 라이브러리 작업 디렉토리 (Git 미포함)
+└── 
 ```
 
 ## 2. 데이터 흐름 (Data Flow)

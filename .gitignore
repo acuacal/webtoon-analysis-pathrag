@@ -14,9 +14,12 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# PathRAG working directory
-pathrag_working_dir/
-
 # Data exports (optional)
 data/graph_exports/*.html
 data/graph_exports/*.graphml
+
+# Temporal operational files
+merge_images.py
+convert_to_jpeg.py
+test_pathrag/
+test_pathrag/*
